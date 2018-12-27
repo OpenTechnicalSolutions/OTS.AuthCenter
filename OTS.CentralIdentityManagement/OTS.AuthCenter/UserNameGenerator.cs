@@ -22,9 +22,12 @@ namespace OTS.AuthCenter
             while(name.Length != 0)
             {
                 name = name.Substring(0, name.Length - 2);
-                var unames = from un in identityUser.Users
+                /*var unames = from un in identityUser.Users
                              where un.UserName.Contains(name)
-                             select un;
+                             select un;*/
+
+                var unames = identityUser.Users.Where(un => un.UserName.Contains(name)).Select(un => un.UserName);
+
                 if (unames.Count() < counter)
                     return name + unames.Count();
                 else

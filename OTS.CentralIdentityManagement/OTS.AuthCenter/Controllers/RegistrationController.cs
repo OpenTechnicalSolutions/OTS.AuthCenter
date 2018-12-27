@@ -53,7 +53,5 @@ namespace OTS.AuthCenter.Controllers
             return RedirectToAction(nameof(Users));
 
         }
-
-        public 
     }
 }
