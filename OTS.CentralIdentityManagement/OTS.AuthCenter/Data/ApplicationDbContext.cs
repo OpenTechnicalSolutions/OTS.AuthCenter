@@ -19,5 +19,7 @@ namespace OTS.AuthCenter.Data
         public DbSet<Building> buildings { get; set; }
 
         public DbSet<Room> rooms { get; set; }
+
+        public DbSet<OTS.AuthCenter.Models.DummyIdentity> DummyIdentity { get; set; }
     }
 }

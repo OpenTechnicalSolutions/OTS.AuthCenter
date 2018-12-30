@@ -13,6 +13,8 @@ namespace OTS.AuthCenter
         {
             "Administrator",
             "AuthCenterAdministrator",
+            "SiteLocationManager",
+            "AccountManager",
             "RegistrationManager",
             "User"
         };
@@ -32,8 +34,12 @@ namespace OTS.AuthCenter
                     roleManager.CreateAsync(new IdentityRole(r)).Wait();
                 }
 
-            if(!(userManager.Users.Count() > 0))
+            if (!(userManager.Users.Count() > 0))
+            {
                 userManager.CreateAsync(new AuthCenterIdentity { UserName = _adminAcct[0], Email = _adminAcct[1] }, _adminAcct[2]).Wait();
+                userManager.AddToRoleAsync(userManager.Users.FirstOrDefault(u => u.UserName == _adminAcct[0]), _roles[0]).Wait();
+            }
+                    
         }
     }
 }

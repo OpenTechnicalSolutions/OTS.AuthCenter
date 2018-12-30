@@ -19,17 +19,20 @@ namespace OTS.AuthCenter.Controllers
             _roleManager = rolemanager;
         }
 
-        public IActionResult Users()
+        [Authorize(Roles = "Administrator, AuthCenterAdministrator, RegistrationManager,AccountManager")]
+        public IActionResult Success()
         {
-            return View(_userManager.Users);
+            return View();
         }
 
+        [Authorize(Roles = "Administrator, AuthCenterAdministrator, RegistrationManager,AccountManager")]
         public IActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator, AuthCenterAdministrator, RegistrationManager,AccountManager")]
         public async Task<IActionResult> RegisterAsync(AuthCenterIdentity identityUser)
         {
             identityUser.UserName = UserNameGenerator.Generate(identityUser.FirstName, identityUser.LastName, _userManager);
@@ -50,7 +53,7 @@ namespace OTS.AuthCenter.Controllers
             }
 #endif
 
-            return RedirectToAction(nameof(Users));
+            return RedirectToAction(nameof(Success));
 
         }
     }

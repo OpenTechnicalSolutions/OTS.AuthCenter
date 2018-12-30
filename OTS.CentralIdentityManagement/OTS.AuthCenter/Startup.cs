@@ -38,7 +38,7 @@ namespace OTS.AuthCenter
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<AuthCenterIdentity, IdentityRole>(options =>
             {
-                options.User.AllowedUserNameCharacters = Configuration["UserAccountSettings"].
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz1BCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
                 options.User.RequireUniqueEmail = true;
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = new System.TimeSpan(0, 30, 0);
