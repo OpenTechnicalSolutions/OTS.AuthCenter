@@ -21,19 +21,20 @@ namespace OTS.AuthCenter.Controllers
             _roleManager = roleManager;
         }
 
-        [Authorize(Roles = "Administrator, AuthCenterAdministrator, RegistrationManager,AccountManager")]
+        [Authorize]
         public IActionResult Index()
         {
             return View(_userManager.Users);
         }
 
+        [Authorize]
         public IActionResult Details(string id)
         {
             var user = _userManager.Users.FirstOrDefault(u => u.Id == id);
             return View(user);
         }
 
-        [Authorize(Roles = "Administrator, AuthCenterAdministrator, RegistrationManager,AccountManager, User")]
+        [Authorize]
         public async Task<IActionResult> Edit(string id)
         {
             var user = _userManager.Users.FirstOrDefault(u => u.Id == id);
@@ -43,11 +44,10 @@ namespace OTS.AuthCenter.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator, AuthCenterAdministrator, RegistrationManager,AccountManager, User")]
+        [Authorize]
         public async Task<IActionResult> Edit(AuthCenterIdentity identityUser)
         {
-            var user = _userManager.Users.FirstOrDefault(u => u.Id == id);
-            if (!(await AreYouAuthorized(user)))
+            if (!(await AreYouAuthorized(identityUser)))
                 return Unauthorized();
 
             if (!ModelState.IsValid)

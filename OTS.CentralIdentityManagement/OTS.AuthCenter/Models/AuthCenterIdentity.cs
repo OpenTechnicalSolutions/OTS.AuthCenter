@@ -28,7 +28,7 @@ namespace OTS.AuthCenter.Models
 
     public class DummyIdentity
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
