@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +21,14 @@ namespace OTS.AuthCenter.Controllers
         }
 
         // GET: Buildings
+        [Authorize("Administrator,AuthCenterAdministrator,SiteLocationManager")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.buildings.ToListAsync());
         }
 
         // GET: Buildings/Details/5
+        [Authorize("Administrator,AuthCenterAdministrator,SiteLocationManager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +47,7 @@ namespace OTS.AuthCenter.Controllers
         }
 
         // GET: Buildings/Create
+        [Authorize("Administrator,AuthCenterAdministrator,SiteLocationManager")]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +58,7 @@ namespace OTS.AuthCenter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize("Administrator,AuthCenterAdministrator,SiteLocationManager")]
         public async Task<IActionResult> Create([Bind("Id,BuildingAddress,BuildingAddress2,BuildingDescription,SiteId")] Building building)
         {
             if (ModelState.IsValid)
@@ -66,6 +71,7 @@ namespace OTS.AuthCenter.Controllers
         }
 
         // GET: Buildings/Edit/5
+        [Authorize("Administrator,AuthCenterAdministrator,SiteLocationManager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +92,7 @@ namespace OTS.AuthCenter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize("Administrator,AuthCenterAdministrator,SiteLocationManager")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,BuildingAddress,BuildingAddress2,BuildingDescription,SiteId")] Building building)
         {
             if (id != building.Id)
@@ -117,6 +124,7 @@ namespace OTS.AuthCenter.Controllers
         }
 
         // GET: Buildings/Delete/5
+        [Authorize("Administrator,AuthCenterAdministrator,SiteLocationManager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +145,7 @@ namespace OTS.AuthCenter.Controllers
         // POST: Buildings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize("Administrator,AuthCenterAdministrator,SiteLocationManager")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var building = await _context.buildings.FindAsync(id);

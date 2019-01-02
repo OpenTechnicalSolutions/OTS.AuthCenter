@@ -44,8 +44,9 @@ namespace OTS.AuthCenter.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(AuthCenterIdentity identityUser)
+        public async Task<IActionResult> Edit([Bind("Email,PhoneNumber,FirstName,LastName,SiteId,BuildingId,RoomId")]AuthCenterIdentity identityUser)
         {
             if (!(await AreYouAuthorized(identityUser)))
                 return Unauthorized();

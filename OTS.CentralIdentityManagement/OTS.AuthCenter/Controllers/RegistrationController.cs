@@ -32,8 +32,9 @@ namespace OTS.AuthCenter.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, AuthCenterAdministrator, RegistrationManager,AccountManager")]
-        public async Task<IActionResult> RegisterAsync(AuthCenterIdentity identityUser)
+        public async Task<IActionResult> RegisterAsync([Bind("Email,PhoneNumber,FirstName,LastName,SiteId,BuildingId,RoomId")]AuthCenterIdentity identityUser)
         {
             identityUser.UserName = UserNameGenerator.Generate(identityUser.FirstName, identityUser.LastName, _userManager);
             string password = PasswordGenerator.Generate();
