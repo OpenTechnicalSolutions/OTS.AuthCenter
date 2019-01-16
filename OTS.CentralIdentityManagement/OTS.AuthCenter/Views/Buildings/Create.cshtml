@@ -1,0 +1,48 @@
+﻿@model OTS.AuthCenter.Models.Building
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Building</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BuildingAddress" class="control-label"></label>
+                <input asp-for="BuildingAddress" class="form-control" />
+                <span asp-validation-for="BuildingAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BuildingAddress2" class="control-label"></label>
+                <input asp-for="BuildingAddress2" class="form-control" />
+                <span asp-validation-for="BuildingAddress2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BuildingDescription" class="control-label"></label>
+                <input asp-for="BuildingDescription" class="form-control" />
+                <span asp-validation-for="BuildingDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SiteId" class="control-label"></label>
+                <input asp-for="SiteId" class="form-control" />
+                <span asp-validation-for="SiteId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
