@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OTS.AuthCenter.Models;
+using Newtonsoft.Json;
 
 namespace OTS.AuthCenter.Controllers
 {
@@ -80,6 +81,24 @@ namespace OTS.AuthCenter.Controllers
                 acceptableRole = true;
 
             return acceptableRole;
+        }
+
+        [Authorize(Roles = "Administrator, AuthCenterAdministrator, AccountManager")]
+        public IActionResult AddRole(string id)
+        {
+            return View(_userManager.Users.FirstOrDefault(u => u.Id == id));
+        }
+
+        [Authorize(Roles = "Administrator, AuthCenterAdministrator, AccountManager")]
+        public async Task<IActionResult> AddRole(string id, string role)
+        {
+            var user = _userManager.Users.FirstOrDefault(u => u.Id == id);
+            var res = await _userManager.AddToRoleAsync(user, role);
+            if (res.Succeeded)
+                return RedirectToAction(nameof(Details), new { id = id });
+            foreach (var error in res.Errors)
+                ModelState.AddModelError("", error.Code + " " + error.Description);
+            return View(user);
         }
     }
 }

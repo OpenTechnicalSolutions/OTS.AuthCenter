@@ -21,14 +21,14 @@ namespace OTS.AuthCenter.Controllers
         }
 
         // GET: SiteLocations
-        [Authorize("Administrator,AuthCenterAdministrator,SiteLocationManager")]
+        [Authorize(Roles = "Administrator,AuthCenterAdministrator,SiteLocationManager")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.siteLocations.ToListAsync());
         }
 
         // GET: SiteLocations/Details/5
-        [Authorize("Administrator,AuthCenterAdministrator,SiteLocationManager")]
+        [Authorize(Roles = "Administrator,AuthCenterAdministrator,SiteLocationManager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,7 +47,7 @@ namespace OTS.AuthCenter.Controllers
         }
 
         // GET: SiteLocations/Create
-        [Authorize("Administrator,AuthCenterAdministrator,SiteLocationManager")]
+        [Authorize(Roles = "Administrator,AuthCenterAdministrator,SiteLocationManager")]
         public IActionResult Create()
         {
             return View();
@@ -58,7 +58,7 @@ namespace OTS.AuthCenter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize("Administrator,AuthCenterAdministrator,SiteLocationManager")]
+        [Authorize(Roles = "Administrator,AuthCenterAdministrator,SiteLocationManager")]
         public async Task<IActionResult> Create([Bind("Id,SiteName,MainOfficeAddress,MainOfficeAddress2,SiteDescription")] SiteLocation siteLocation)
         {
             if (ModelState.IsValid)
@@ -91,7 +91,7 @@ namespace OTS.AuthCenter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize("Administrator,AuthCenterAdministrator,SiteLocationManager")]
+        [Authorize(Roles = "Administrator,AuthCenterAdministrator,SiteLocationManager")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,SiteName,MainOfficeAddress,MainOfficeAddress2,SiteDescription")] SiteLocation siteLocation)
         {
             if (id != siteLocation.Id)
@@ -123,7 +123,7 @@ namespace OTS.AuthCenter.Controllers
         }
 
         // GET: SiteLocations/Delete/5
-        [Authorize("Administrator,AuthCenterAdministrator,SiteLocationManager")]
+        [Authorize(Roles = "Administrator,AuthCenterAdministrator,SiteLocationManager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -144,7 +144,7 @@ namespace OTS.AuthCenter.Controllers
         // POST: SiteLocations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize("Administrator,AuthCenterAdministrator,SiteLocationManager")]
+        [Authorize(Roles = "Administrator,AuthCenterAdministrator,SiteLocationManager")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var siteLocation = await _context.siteLocations.FindAsync(id);
